@@ -43,13 +43,33 @@ const Header = () => {
   );
 };
 
+const RestaurantCard = () => {
+  return (
+    <div className="restaurant-card">
+      <h3>Meghana Food</h3>
+    </div>
+  );
+};
+
+const Body = () => {
+  return (
+    <div className="body">
+      <div className="search">Search</div>
+      <div className="restaurant-container">
+        {/* Restaurants Card */}
+        <RestaurantCard />
+      </div>
+    </div>
+  );
+};
+
 const AppLayout = () => {
   return (
     <div className="app">
       {/* Header */}
       <Header />
       {/* Body */}
-
+      <Body />
       {/* Footer */}
     </div>
   );
