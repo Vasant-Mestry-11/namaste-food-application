@@ -46,7 +46,15 @@ const Header = () => {
 const RestaurantCard = () => {
   return (
     <div className="restaurant-card">
+      <img
+        alt="food logo"
+        src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/x4uyxvihmg8qa3pddkgf"
+        className="restaurant-logo"
+      />
       <h3>Meghana Food</h3>
+      <h4>Biryani, North Indian, Asian</h4>
+      <h4>4.4 stars</h4>
+      <h4>38 minutes</h4>
     </div>
   );
 };
@@ -57,6 +65,12 @@ const Body = () => {
       <div className="search">Search</div>
       <div className="restaurant-container">
         {/* Restaurants Card */}
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
+        <RestaurantCard />
         <RestaurantCard />
       </div>
     </div>
