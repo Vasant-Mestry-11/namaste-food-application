@@ -6,6 +6,11 @@ import Shimmer from "./Shimmer";
 const Body = () => {
 
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [filteredListOfRestaurants, setFilteredListOfRestaurants] = useState([])
+
+  const [searchText, setSearchText] = useState('')
+
+  // Whenever state variable updates, react triggers a reconsiliation cycle (re-render the component)
 
   useEffect(() => {
     fetchData()
@@ -17,22 +22,31 @@ const Body = () => {
 
     const json = await data.json();
 
-    setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+    setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setFilteredListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
   }
 
   return listOfRestaurants.length === 0 ? <Shimmer /> : (
     <div className="body">
-      {/* <div className="search">Search</div> */}
       <div className="filter">
+        <div className="search">
+          <input type="text" className="search-box" value={searchText} onChange={(e) => {
+            setSearchText(e.target.value)
+          }} />
+          <button onClick={() => {
+            const filteredList = listOfRestaurants.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()))
+            setFilteredListOfRestaurants(filteredList)
+          }}>Search</button>
+        </div>
         <button className="filter-btn" onClick={() => {
           const filteredList = listOfRestaurants.filter((res) => res.info.avgRating > 4)
 
-          setListOfRestaurants(filteredList)
+          setFilteredListOfRestaurants(filteredList)
         }}>Top Rated Restaurants</button>
       </div>
       <div className="restaurant-container">
         {/* Restaurants Card */}
-        {listOfRestaurants.map((restaurant) => (
+        {filteredListOfRestaurants.map((restaurant) => (
           <RestaurantCard key={restaurant.info.id} resData={restaurant} />
         ))}
       </div>
