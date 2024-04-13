@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { resList } from "../utils/mockData";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
 
@@ -11,6 +12,9 @@ const Body = () => {
   const [searchText, setSearchText] = useState('')
 
   // Whenever state variable updates, react triggers a reconsiliation cycle (re-render the component)
+
+
+  const isOnline = useOnlineStatus();
 
   useEffect(() => {
     fetchData()
@@ -46,9 +50,11 @@ const Body = () => {
       </div>
       <div className="restaurant-container">
         {/* Restaurants Card */}
-        {filteredListOfRestaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
-        ))}
+        {
+          isOnline ? filteredListOfRestaurants.map((restaurant) => (
+            <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+          )) : <p>You are offline</p>
+        }
       </div>
     </div>
   );

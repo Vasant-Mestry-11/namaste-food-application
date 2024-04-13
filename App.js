@@ -1,12 +1,17 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./src/components/Header";
 import Body from "./src/components/Body";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import About from "./src/components/About";
+// import About from "./src/components/About";
 import Contact from "./src/components/Contact";
 import Error from './src/components/Error'
 import RestaurantMenu from "./src/components/RestaurantMenu";
+
+// this will create/load separate chunk.js file for Grocery 
+const Grocery = lazy(() => import('./src/components/Grocery'))
+
+const About = lazy(() => import('./src/components/About'))
 
 /*
 
@@ -38,6 +43,13 @@ import RestaurantMenu from "./src/components/RestaurantMenu";
 
 
 
+// Chunking
+// code splitting
+// dynamic bundling
+// lazy loading
+// on demand loading
+
+
 const AppLayout = () => {
   return (
     <div className="app">
@@ -59,11 +71,19 @@ const appRouter = createBrowserRouter([
       },
       {
         path: '/about',
-        element: <About />
+        element: <Suspense fallback={<h1>Loading...</h1>}>
+          <About />
+        </Suspense>
       },
       {
         path: '/contact',
         element: <Contact />
+      },
+      {
+        path: '/grocery',
+        element: <Suspense fallback={<h1>Loading...</h1>}>
+          <Grocery />
+        </Suspense>
       },
       {
         path: '/restaurants/:resId',
