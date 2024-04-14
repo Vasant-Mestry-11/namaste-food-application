@@ -17,23 +17,33 @@ const Header = () => {
 
   // console.log('header render')
   return (
-    <div className="header">
+    <div className="flex justify-between align-center bg-pink-200 shadow-lg mb-2">
       {/* Logo */}
       <div className="logo-container">
         <img
-          className="logo"
+          className="w-24"
           src={LOGO_URL}
           alt="logo"
         />
       </div>
 
       <div className="nav-items">
-        <ul>
-          <Link to="/">Home</Link>
-          <Link to="/about">About Us</Link>
-          <Link to="/contact">Contact Us</Link>
-          <Link to="/grocery">Grocery</Link>
-          <Link to="/cart">Cart</Link>
+        <ul className="flex p-4 m-4">
+          <li className="px-4">
+            <Link to="/">Home</Link>
+          </li>
+          <li className="px-4">
+            <Link to="/about">About Us</Link>
+          </li>
+          <li className="px-4">
+            <Link to="/contact">Contact Us</Link>
+          </li>
+          <li className="px-4">
+            <Link to="/grocery">Grocery</Link>
+          </li>
+          <li className="px-4">
+            <Link to="/cart">Cart</Link>
+          </li>
           <button className="login" onClick={() => {
             btnName === 'Login' ? setBtnName("Logout") : setBtnName("Login")
           }}>{btnName}</button>

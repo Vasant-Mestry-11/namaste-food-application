@@ -1,4 +1,8 @@
-.header {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,7 +33,6 @@
 .restaurant-card {
   padding: 5px;
   width: 200px;
-  /* height: 300px; */
   border: 1px solid transparent;
   background-color: #f0f0f0;
   margin: 5px;
@@ -77,4 +80,4 @@
 .user-card {
   padding: 10px;
   border: 1px solid black;
-}
+} */
