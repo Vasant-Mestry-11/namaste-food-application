@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./src/components/Header";
 import Body from "./src/components/Body";
@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Contact from "./src/components/Contact";
 import Error from './src/components/Error'
 import RestaurantMenu from "./src/components/RestaurantMenu";
+import UserContext from "./src/utils/UserContext";
 
 // this will create/load separate chunk.js file for Grocery 
 const Grocery = lazy(() => import('./src/components/Grocery'))
@@ -51,11 +52,23 @@ const About = lazy(() => import('./src/components/About'))
 
 
 const AppLayout = () => {
+  const [userName, setUserName] = useState()
+
+  // authentication
+  useEffect(() => {
+    const data = {
+      name: 'Akshay saini'
+    }
+    setUserName(data.name)
+  }, [])
+  
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+    </UserContext.Provider>
   );
 };
 

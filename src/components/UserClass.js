@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import UserContext from '../utils/UserContext';
 
 class UserClass extends React.Component {
 
@@ -22,16 +23,21 @@ class UserClass extends React.Component {
       }
 
     }
+
+    console.log('user class constructor')
   }
 
 
   async componentDidMount() {
-    const res = await fetch('https://api.github.com/users/akshaymarch7');
+    const res = await fetch('https://api.github.com/users/vasant-mestry-11');
     const data = await res.json()
 
     this.setState({
       userInfo: data
     })
+
+    console.log('user class did mount')
+
   }
 
   componentWillUnmount() {
@@ -41,8 +47,15 @@ class UserClass extends React.Component {
   render() {
     const { name, location } = this.state.userInfo;
 
+    console.log('user class render')
+
+
+
     return <div className="user-card">
       <h2>Name: {name}</h2>
+      <UserContext.Consumer>
+        {({ loggedInUser }) => <h3 className='font-bold'>{loggedInUser}</h3>}
+      </UserContext.Consumer>
       <h3>Location: {location}</h3>
       <h4>Contact: @vasantmestry</h4>
     </div>

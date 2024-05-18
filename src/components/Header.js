@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { LOGO_URL } from '../utils/constants';
 import { Link, useNavigate } from 'react-router-dom';
+import useOnlineStatus from '../utils/useOnlineStatus';
+import UserContext from '../utils/UserContext';
 
 const Header = () => {
 
@@ -14,6 +16,11 @@ const Header = () => {
   }, [btnName])
 
   const navigate = useNavigate();
+
+  const isOnline = useOnlineStatus();
+
+  const {loggedInUser} = useContext(UserContext);
+  // console.log(userData)
 
   // console.log('header render')
   return (
@@ -29,6 +36,9 @@ const Header = () => {
 
       <div className="nav-items">
         <ul className="flex p-4 m-4">
+          <li className="px-4">
+            Online Status {isOnline ? '✅' : '❌'}
+          </li>
           <li className="px-4">
             <Link to="/">Home</Link>
           </li>
@@ -47,6 +57,7 @@ const Header = () => {
           <button className="login" onClick={() => {
             btnName === 'Login' ? setBtnName("Logout") : setBtnName("Login")
           }}>{btnName}</button>
+          <li className='px-4 font-bold'>{loggedInUser}</li>
         </ul>
       </div>
     </div>
